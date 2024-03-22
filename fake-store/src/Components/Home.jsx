@@ -1,27 +1,37 @@
-import React from 'react'
+import { useContext } from 'react'
 import Nav from './Nav'
 import { Link } from 'react-router-dom'
+import { ProductContext } from "../utils/Context"
+import Loading from './Loading'
+
 
 const Home = () => {
+
+    const [products] = useContext(ProductContext);
+
     return (
+
+
         <>
             <Nav />
-            <Link to="/details/1" className='w-[85%] h-full p-5 pt-16 flex flex-wrap gap-4 justify-between            overflow-x-hidden overflow-y-auto' >
+            <div className='w-[85%] h-full p-5 pt-16 flex flex-wrap gap-4 justify-between overflow-x-hidden overflow-y-auto' >
 
-                {/* Card */}
-                <div className='w-[18%] h-[32vh] border flex flex-col items-center p-3 shadow hover:scale-105 hover:text-blue-500 ' >
+                {products.map((p, i) => (
 
-                    {/* image */}
-                    <div className=' w-full h-[80%] bg-contain bg-no-repeat bg-center mb-3 '
-                        style={{ backgroundImage: "url(https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg)" }} ></div>
+                    < Link key={p.id} to={`/details/${p.id}`} className='w-[18%] h-[32vh] border flex flex-col items-center p-3 shadow hover:scale-105 hover:text-blue-500 ' >
 
-                    {/* heading */}
-                    <h1 >Product Name</h1>
+                        <div div className=' w-full h-[80%] bg-contain bg-no-repeat bg-center mb-3 '
+                            style={{ backgroundImage: `url(${p.image})` }} ></div>
 
-                </div>
 
-            </Link>
+                        <h1>{p.title}</h1>
+
+                    </Link >
+                ))}
+
+            </div >
         </>
+
     )
 }
 
